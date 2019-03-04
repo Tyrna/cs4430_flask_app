@@ -10,3 +10,10 @@ As of 3/4/2019, the url to access this application is: http://flaskapp-env.ph5f4
 
 In order to apply changes to this development environment, a zip file needs to be created with the application itself and the required dependencies.
 After, it must be uploaded on AWS interface and deployed from there until automation arrives.
+
+### Application
+
+The following programs are needed in order to properly work with AWS tools:
+  * eb-cli tools
+  * python 3.6
+  * ssh
