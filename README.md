@@ -16,4 +16,5 @@ After, it must be uploaded on AWS interface and deployed from there until automa
 The following programs are needed in order to properly work with AWS tools:
   * eb-cli tools
   * python 3.6
+  * pymysql
   * ssh
