@@ -1,8 +1,18 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
+from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 api = Api(app)
+
+#Initialize MySQL
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'cs4430'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'cs4430'
+app.config['MYSQL_DATABASE_DB'] = 'computer'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+conn = mysql.connect()
 
 
 def get_route(city1, city2):
@@ -30,9 +40,19 @@ def get_route(city1, city2):
             "train" : { "price" : 70, "speed" : 140}
         }
 
+def get_cities():
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM product LIMIT 10")
+    data = cursor.fetchall()
+    print(data)
+    return data
+
+
 class GetInfo(Resource):
     def get(self):
         return { "cities" : ["A", "B", "C", "D", "E"] }
+        #return get_cities()
 
     def post(self):
         json_data = request.get_json(force=True)
