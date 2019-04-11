@@ -27,12 +27,12 @@ def get_route(city1, city2):
             "distance" : 200,
             "car" : { "price" : 30, "speed" : 40},
             "bus" : { "price" : 60, "speed" : 50},
-            "train" : { "price" : 70, "speed" : 140},
+            "train" : { "price" : 70, "speed" : 140}
         }
 
 class GetInfo(Resource):
     def get(self):
-        return { "cities" : ["A", "B"] }
+        return { "cities" : ["A", "B", "C", "D", "E"] }
 
     def post(self):
         json_data = request.get_json(force=True)
