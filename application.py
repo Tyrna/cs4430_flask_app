@@ -1,9 +1,14 @@
 from flask import Flask
-application = app = Flask(__name__)
+from flask_restful import Resource, Api
 
-@app.route("/")
-def test():
-    return "Hello"
+app = Flask(__name__)
+api = Api(app)
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello':'world'}
+
+api.add_resource(HelloWorld, '/')
 
 if __name__ == "__main__":
     app.run(debug=true)
