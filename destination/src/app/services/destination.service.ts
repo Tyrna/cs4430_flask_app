@@ -12,8 +12,8 @@ export class DestinationService {
   getCities() {
     return this.http.get(`${environment.apiEndpoint}`).pipe(
       map(x =>
-        x['cities'].map(y => {
-          return { value: y, display: y };
+        x.map(y => {
+          return { value: y[0], display: y[1] };
         })
       )
     );

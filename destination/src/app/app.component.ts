@@ -46,6 +46,6 @@ export class AppComponent implements OnInit {
   }
 
   calculatePrice(price: number) {
-    return Math.round(this.destination.distance / price);
+  return Math.round(this.destination.distance * price / 20);
   }
 }

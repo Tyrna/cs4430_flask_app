@@ -28,32 +28,32 @@
   </div>
   <h2>Transporations</h2>
   <div *ngIf="destination">
-    <div class="transportation" *ngIf="destination.car">
+    <div class="transportation" *ngIf="destination.Car">
       <mat-icon>directions_car</mat-icon>
       <p>Car</p>
       <span> 
-        Time: {{ calculateTime(destination.car.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.car.price) + ".00 USD Total Price"  }} 
+        Time: {{ calculateTime(destination.Car.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.Car.price) + ".00 USD Total Price"  }} 
       </span>
     </div>
-    <div class="transportation" *ngIf="destination.bus">
+    <div class="transportation" *ngIf="destination.Bus">
       <mat-icon>directions_bus</mat-icon>
       <p>Bus</p>
       <span> 
-        Time: {{ calculateTime(destination.bus.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.bus.price) + ".00 USD Total Price"  }} 
+        Time: {{ calculateTime(destination.Bus.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.Bus.price) + ".00 USD Total Price"  }} 
       </span>
     </div>
-    <div class="transportation" *ngIf="destination.train">
+    <div class="transportation" *ngIf="destination.Train">
       <mat-icon>directions_transit</mat-icon>
       <p>Train</p>
       <span>
-        Time: {{ calculateTime(destination.train.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.train.price) + ".00 USD Total Price"  }}
+        Time: {{ calculateTime(destination.Train.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.Train.price) + ".00 USD Total Price"  }}
       </span>
     </div>
-    <div class="transportation" *ngIf="destination.airplane">
+    <div class="transportation" *ngIf="destination.Flight">
         <mat-icon>airplanemode_active</mat-icon>
         <p>Airplane</p>
         <span>
-          Time: {{ calculateTime(destination.airplane.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.airplane.price) + ".00 USD Total Price"  }}
+          Time: {{ calculateTime(destination.Flight.speed) + " Hours" }} - {{ "$" + calculatePrice(destination.Flight.price) + ".00 USD Total Price"  }}
         </span>
       </div>
   </div>

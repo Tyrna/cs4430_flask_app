@@ -10,53 +10,52 @@ api = Api(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 #Initialize MySQL
-#mysql = MySQL()
-#app.config['MYSQL_DATABASE_USER'] = 'cs4430'
-#app.config['MYSQL_DATABASE_PASSWORD'] = 'cs4430'
-#app.config['MYSQL_DATABASE_DB'] = 'computer'
-#app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-#mysql.init_app(app)
-#conn = mysql.connect()
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'cs4430'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'cs4430'
+app.config['MYSQL_DATABASE_DB'] = 'transportation'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+conn = mysql.connect()
 
 
 def get_route(city1, city2):
-    if (city1 == "A" and city2 == "B"):
-        return {
-            "distance" : 1000,
-            "car" : { "price" : 30, "speed" : 40},
-            "bus" : { "price" : 60, "speed" : 50},
-            "train" : { "price" : 70, "speed" : 140},
-            "airplane" : {"price" : 210, "speed" : 520}
-        }
-    elif (city1 == "B" and city2 == "C"):
-         return {
-            "distance" : 2500,
-            "car" : { "price" : 30, "speed" : 40},
-            "bus" : { "price" : 60, "speed" : 50},
-            "train" : { "price" : 70, "speed" : 140},
-            "airplane" : {"price" : 210, "speed" : 520}
-        }
-    elif (city1 == "D" and city2 == "A"):
-         return {
-            "distance" : 200,
-            "car" : { "price" : 30, "speed" : 40},
-            "bus" : { "price" : 60, "speed" : 50},
-            "train" : { "price" : 70, "speed" : 140}
-        }
+    vehicles = {}
+    cursor = conn.cursor()
+
+    sql = "SELECT routeID, distance FROM routes WHERE cityFrom = %s AND cityTo = %s"
+    val = (city1, city2)
+    cursor.execute(sql, val)
+
+    result = cursor.fetchall()
+    routeid = result[0][0]
+    vehicles["distance"] = result[0][1]
+
+
+    sql = "SELECT type, speed, price FROM vehicles WHERE vehicleID IN (SELECT vehicleID FROM connection WHERE routeID = %s)"
+    val = (routeid, )
+    cursor.execute(sql, val)
+
+    result = cursor.fetchall()
+
+    for vehicle in result:
+        vehicles[vehicle[0]] = { "price" : vehicle[2], "speed" : vehicle[1] }
+
+
+    return vehicles;
+
 
 def get_cities():
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM product LIMIT 10")
+    cursor.execute("SELECT * FROM cities")
     data = cursor.fetchall()
-    print(data)
     return data
 
 
 class GetInfo(Resource):
     def get(self):
-        return { "cities" : ["A", "B", "C", "D", "E"] }
-        #return get_cities()
+        return jsonify(get_cities())
 
     def post(self):
         json_data = request.get_json(force=True)
