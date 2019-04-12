@@ -44,4 +44,8 @@ export class AppComponent implements OnInit {
   calculateTime(speed: number) {
     return Math.round(this.destination.distance / speed);
   }
+
+  calculatePrice(price: number) {
+    return Math.round(this.destination.distance / price);
+  }
 }
