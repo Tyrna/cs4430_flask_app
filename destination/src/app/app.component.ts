@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DestinationService } from './services/destination.service';
+
 export interface Food {
   value: string;
   viewValue: string;
@@ -11,17 +12,36 @@ export interface Food {
 })
 export class AppComponent implements OnInit {
   title = 'destination';
-  foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
-  ];
+  citiesA: Array<any>;
+  citiesB: Array<any>;
+  cityA: any = '';
+  cityB: any = '';
+  destination: any;
 
   constructor(private destinationService: DestinationService) {}
+
   ngOnInit(): void {
-    this.destinationService.getCities().subscribe(data => console.log(data));
-    this.destinationService
-      .getEndpoints({ city1: 'A', city2: 'B' })
-      .subscribe(data => console.log(data));
+    this.destinationService.getCities().subscribe(data => {
+      console.log(data);
+      this.citiesA = this.citiesB = data;
+    });
+  }
+
+  onSelectChange(event) {
+    console.log(this.cityA, this.cityB);
+    if (!this.cityA || !this.cityB || this.cityA === this.cityB) {
+      this.destination = null;
+    } else {
+      this.destinationService
+        .getEndpoints({ city1: this.cityA, city2: this.cityB })
+        .subscribe(data => {
+          console.log(data);
+          this.destination = data;
+        });
+    }
+  }
+
+  calculateTime(speed: number) {
+    return Math.round(this.destination.distance / speed);
   }
 }

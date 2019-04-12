@@ -5,3 +5,18 @@
   left: 0;
   right: 0;
 }
+
+.transportation > p {
+  font-size: 50px;
+  display: inline;
+}
+
+.transportation > span {
+  font-size: 50px;
+  display: inline;
+}
+
+.transportation > mat-icon {
+  font-size: 100px;
+  display: inline;
+}

@@ -10,9 +10,13 @@ export class DestinationService {
   constructor(private http: HttpClient) {}
 
   getCities() {
-    return this.http
-      .get(`${environment.apiEndpoint}`)
-      .pipe(map(x => x['cities']));
+    return this.http.get(`${environment.apiEndpoint}`).pipe(
+      map(x =>
+        x['cities'].map(y => {
+          return { value: y, display: y };
+        })
+      )
+    );
   }
 
   getEndpoints(data) {
