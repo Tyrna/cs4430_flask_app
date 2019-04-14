@@ -22,12 +22,19 @@
       </mat-select>
     </mat-form-field>
   </mat-sidenav>
-  <div style="text-align:center">
-    <h1>Choose your {{ title }}!</h1>
-    <p style="text-align: left; padding: 20px">{{ cityA }}</p>
+  <div>
+    <h1 style="text-align:center">Choose your {{ title }}!</h1>
+    <span style="float: left; padding-left: 190px; font-size: 30px" *ngIf="cityA">
+	    <mat-icon style="font-size: 40px; display: block; padding: 10px">location_city</mat-icon>{{ this.citiesA[this.cityA-1].display }}
+    </span>   
+    <span style="float: right; padding-right: 240px; font-size: 30px" *ngIf="cityB">
+	    <mat-icon style="font-size: 40px; display: block; padding: 10px">location_city</mat-icon>{{ this.citiesB[this.cityB-1].display }}
+    </span>
+    <div style="clear: both;"></div>
   </div>
+  <mat-divider *ngIf="cityA" style="margin-top: 20px; margin-bottom: 40px"></mat-divider>
   <h2>Transporations</h2>
-  <div *ngIf="destination">
+  <div  *ngIf="destination">
     <div class="transportation" *ngIf="destination.Car">
       <mat-icon>directions_car</mat-icon>
       <p>Car</p>
